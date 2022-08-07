@@ -1,6 +1,6 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
-const useLocalstorage = <T = unknown>() => {
+const useLocalstorage = <T = unknown>(keyItem?: string) => {
   const [data, setData] = useState<T | null>(null)
 
   const setStorage = useCallback((key: string, value: T) => {
@@ -17,6 +17,10 @@ const useLocalstorage = <T = unknown>() => {
     } else {
       setData(null)
     }
+  }, [])
+
+  useEffect(() => {
+    getStorage(keyItem ?? '')
   }, [])
 
   return { data, setStorage, getStorage }
