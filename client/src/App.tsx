@@ -1,12 +1,14 @@
 import React from 'react'
+import Routers from './features/routes/Routers'
+import Layout from './layout/Layout'
 
 type Props = {}
 
 const App = ({ ...props }: Props) => {
   return (
-    <div className="bg-black" {...props}>
-      App
-    </div>
+    <Layout {...props}>
+      <Routers />
+    </Layout>
   )
 }
 
