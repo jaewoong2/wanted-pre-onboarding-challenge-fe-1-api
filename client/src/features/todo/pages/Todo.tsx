@@ -36,15 +36,16 @@ const Todo = () => {
         <TodoHeader />
         <div>
           <ul>
-            {data?.data.map(({ content, title, id }) =>
+            {data?.data.map(({ title, id, content }) =>
               updateId === id ? (
-                <TodoForm id={id} />
+                <div className="mb-2">
+                  <TodoForm title={title} content={content} id={id} />
+                </div>
               ) : (
                 <TodoItem
                   title={title}
                   handleUpdateButton={() => setUpdateId(id)}
                   key={id}
-                  content={content}
                   id={id}
                 />
               )

@@ -1,15 +1,15 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import useDeleteTodo from '../hooks/useDeleteTodo'
 import useGetTodoList from '../hooks/useGetTodoList'
 
 type Props = {
   title: string
-  content: string
   id: string
   handleUpdateButton?: () => void
 }
 
-const TodoItem = ({ content, id, handleUpdateButton, title }: Props) => {
+const TodoItem = ({ id, handleUpdateButton, title }: Props) => {
   const { refetch } = useGetTodoList({ enabled: false })
   const { handleDelete } = useDeleteTodo(id, {
     onSuccess: () => {
@@ -18,13 +18,14 @@ const TodoItem = ({ content, id, handleUpdateButton, title }: Props) => {
   })
 
   return (
-    <>
-      <h3 className="text-gray-800 font-semibold border w-fit p-2 rounded-xl">{title}</h3>
+    <div className="w-full flex justify-between">
+      <Link to={`${id}`} className="h-fit">
+        <h3 className="m-0 text-gray-800 font-semibold border w-fit justify-center items-center flex px-2 py-2 rounded-xl hover:bg-blue-400 hover:text-white">
+          {title}
+        </h3>
+      </Link>
       <li className="ml-2">
         <div className="flex mb-4 items-center">
-          <p data-id={id} className="w-full text-grey-darkest">
-            {content}
-          </p>
           <button
             onClick={handleUpdateButton}
             type="button"
@@ -41,7 +42,7 @@ const TodoItem = ({ content, id, handleUpdateButton, title }: Props) => {
           </button>
         </div>
       </li>
-    </>
+    </div>
   )
 }
 

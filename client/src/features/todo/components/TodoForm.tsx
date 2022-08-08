@@ -6,11 +6,13 @@ import useUpdateTodo from '../hooks/useUpdateTodo'
 
 type Props = {
   id?: string
+  title?: string
+  content?: string
 }
 
-const TodoForm = ({ id }: Props) => {
-  const [content, setContent, handleContentChange] = useInputForm('')
-  const [title, setTitle, handleTitleChange] = useInputForm('')
+const TodoForm = ({ id, title: prevTitle, content: prevContent }: Props) => {
+  const [content, setContent, handleContentChange] = useInputForm(prevContent ?? '')
+  const [title, setTitle, handleTitleChange] = useInputForm(prevTitle ?? '')
   const { refetch } = useGetTodoList({ enabled: false })
 
   const { handleUpdate } = useUpdateTodo(id ?? '', {
