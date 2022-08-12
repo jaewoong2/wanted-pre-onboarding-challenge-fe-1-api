@@ -1,18 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from 'react'
 
-import useLocalstorage from '@/features/auth/hooks/useLocalstorage'
-import { SignupResponse } from '@/features/auth/types'
-
+import useTokenError from '@/features/auth/hooks/useTokenError'
 import TodoForm from '../components/TodoForm'
 import TodoHeader from '../components/TodoHeader'
 import TodoItem from '../components/TodoItem'
 import useGetTodoList from '../hooks/useGetTodoList'
 
 const Todo = () => {
-  const { getStorage } = useLocalstorage<SignupResponse>('[user]')
-  const navigate = useNavigate()
-
   const [updateId, setUpdateId] = useState<string | null>(null)
   const { data } = useGetTodoList({
     keepPreviousData: true,
@@ -21,14 +15,7 @@ const Todo = () => {
     },
     enabled: true,
   })
-
-  useEffect(() => {
-    getStorage('[user]', {
-      onError: () => {
-        navigate('/404')
-      },
-    })
-  }, [])
+  useTokenError()
 
   return (
     <div className="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans">

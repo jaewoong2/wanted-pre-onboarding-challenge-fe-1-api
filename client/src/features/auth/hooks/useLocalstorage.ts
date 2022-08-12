@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useState } from 'react'
 
-const useLocalstorage = <T = unknown>(keyItem?: string) => {
+const useLocalstorage = <T extends unknown, A extends unknown[] = unknown[]>(
+  keyItem?: string,
+  effectDeps?: A
+) => {
   const [data, setData] = useState<T | null>(null)
 
   const setStorage = useCallback((key: string, value: T) => {
@@ -34,7 +37,7 @@ const useLocalstorage = <T = unknown>(keyItem?: string) => {
 
   useEffect(() => {
     getStorage(keyItem ?? '')
-  }, [])
+  }, effectDeps ?? [])
 
   return { data, setStorage, getStorage }
 }

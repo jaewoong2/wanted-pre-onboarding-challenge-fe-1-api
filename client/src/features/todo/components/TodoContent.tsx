@@ -7,7 +7,7 @@ const TodoContent = () => {
   const { id } = useParams()
   const { data } = useGetTodo(id ?? '', { enabled: !!id })
   const navigate = useNavigate()
-  useTokenError(() => {}, [])
+  useTokenError()
 
   return (
     <div className="w-full ml-4 mt-4">

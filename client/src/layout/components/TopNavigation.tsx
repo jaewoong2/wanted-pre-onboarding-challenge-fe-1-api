@@ -1,14 +1,12 @@
+import React from 'react'
 import useLocalstorage from '@/features/auth/hooks/useLocalstorage'
-import React, { useEffect } from 'react'
+import useLogout from '@/features/auth/hooks/useLogout'
 import { Link, useLocation } from 'react-router-dom'
 
 const TopNavigation = () => {
   const { key } = useLocation()
-  const { data, getStorage } = useLocalstorage()
-
-  useEffect(() => {
-    getStorage('[user]')
-  }, [key])
+  const logout = useLogout({ to: '/' })
+  const { data } = useLocalstorage('[user]', [key])
 
   return (
     <nav className="rounded mt-2">
@@ -39,9 +37,13 @@ const TopNavigation = () => {
             </>
           ) : (
             <li>
-              <Link className="block text-gray-700 rounded hover:text-blue-700" to="/auth/logout">
+              <button
+                type="button"
+                className="block text-gray-700 rounded hover:text-blue-700"
+                onClick={logout}
+              >
                 로그아웃
-              </Link>
+              </button>
             </li>
           )}
         </ul>

@@ -36,7 +36,7 @@ type MutationOptions = Omit<
   'mutationKey' | 'mutationFn'
 >
 
-const useUpdateTodo = (id: string, options?: MutationOptions) => {
+const useUpdateTodo = (id?: string, options?: MutationOptions) => {
   const { data: userData } = useLocalstorage<LoginResponse>('[user]')
   const mutation = useMutation<GetTodoListResponse['data'], AxiosError, UpdateRequestParams>(
     ['todos'],

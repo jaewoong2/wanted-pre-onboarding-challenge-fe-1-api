@@ -11,11 +11,11 @@ type Props = {
 }
 
 const TodoForm = ({ id, title: prevTitle, content: prevContent }: Props) => {
-  const [content, setContent, handleContentChange] = useInputForm(prevContent ?? '')
-  const [title, setTitle, handleTitleChange] = useInputForm(prevTitle ?? '')
+  const [content, setContent, handleContentChange] = useInputForm(prevContent)
+  const [title, setTitle, handleTitleChange] = useInputForm(prevTitle)
   const { refetch } = useGetTodoList({ enabled: false })
 
-  const { handleUpdate } = useUpdateTodo(id ?? '', {
+  const { handleUpdate } = useUpdateTodo(id, {
     onSuccess: () => {
       refetch()
     },
